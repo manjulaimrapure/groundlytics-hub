@@ -1,8 +1,9 @@
 
+import { Outlet } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarContent, SidebarTrigger } from "@/components/ui/sidebar";
 import { Navigation } from "./Navigation";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout() {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
@@ -14,7 +15,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 min-h-screen">
           <div className="container py-6">
             <SidebarTrigger className="mb-6" />
-            {children}
+            <Outlet />
           </div>
         </main>
       </div>
