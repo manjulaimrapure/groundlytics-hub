@@ -53,6 +53,25 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-soil-300;
   }
+
+  /* RTL Support */
+  html[dir="rtl"] * {
+    text-align: right;
+  }
+
+  html[dir="rtl"] .flex-row {
+    flex-direction: row-reverse;
+  }
+
+  html[dir="rtl"] .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+
+  html[dir="rtl"] .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
 }
 
 @layer components {

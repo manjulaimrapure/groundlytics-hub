@@ -7,10 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Sprout } from "lucide-react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { t } = useTranslation();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,15 +27,15 @@ const Login = () => {
           <div className="flex justify-center mb-2">
             <Sprout className="h-12 w-12 text-soil-600" />
           </div>
-          <CardTitle className="text-2xl font-bold text-soil-800">Sign in to SoilSense</CardTitle>
+          <CardTitle className="text-2xl font-bold text-soil-800">{t("auth.signIn")}</CardTitle>
           <CardDescription className="text-soil-600">
-            Enter your credentials to access your account
+            {t("auth.enterInfo")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-soil-700">Email</Label>
+              <Label htmlFor="email" className="text-soil-700">{t("auth.email")}</Label>
               <Input 
                 id="email" 
                 type="email" 
@@ -46,9 +48,9 @@ const Login = () => {
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-soil-700">Password</Label>
+                <Label htmlFor="password" className="text-soil-700">{t("auth.password")}</Label>
                 <Link to="/forgot-password" className="text-sm text-soil-600 hover:text-soil-800">
-                  Forgot password?
+                  {t("auth.forgotPassword")}
                 </Link>
               </div>
               <Input 
@@ -63,18 +65,18 @@ const Login = () => {
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="remember" />
-              <Label htmlFor="remember" className="text-sm text-soil-600">Remember me</Label>
+              <Label htmlFor="remember" className="text-sm text-soil-600">{t("auth.rememberMe")}</Label>
             </div>
             <Button type="submit" className="w-full bg-soil-600 hover:bg-soil-700">
-              Sign in
+              {t("auth.signIn")}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <div className="text-sm text-soil-600 text-center">
-            Don't have an account?{" "}
+            {t("auth.alreadyHaveAccount")}{" "}
             <Link to="/register" className="text-soil-700 hover:text-soil-800 font-medium">
-              Create an account
+              {t("auth.createAccount")}
             </Link>
           </div>
         </CardFooter>

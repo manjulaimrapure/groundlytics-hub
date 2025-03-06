@@ -15,21 +15,24 @@ import {
   Leaf
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const navItems = [
-  { to: "/", icon: Home, label: "Home" },
-  { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/sensors", icon: MapPin, label: "Soil Sensors" },
-  { to: "/analysis", icon: LineChart, label: "Data Analysis" },
-  { to: "/alerts", icon: Bell, label: "Alerts" },
-  { to: "/farm", icon: Sprout, label: "Farm Management" },
-  { to: "/users", icon: Users, label: "User Access" },
-  { to: "/knowledge", icon: BookOpen, label: "Soil Knowledge" },
-  { to: "/contact", icon: Phone, label: "Contact" },
+  { to: "/", icon: Home, labelKey: "nav.home" },
+  { to: "/dashboard", icon: LayoutDashboard, labelKey: "nav.dashboard" },
+  { to: "/sensors", icon: MapPin, labelKey: "nav.sensors" },
+  { to: "/analysis", icon: LineChart, labelKey: "nav.analysis" },
+  { to: "/alerts", icon: Bell, labelKey: "nav.alerts" },
+  { to: "/farm", icon: Sprout, labelKey: "nav.farm" },
+  { to: "/users", icon: Users, labelKey: "nav.users" },
+  { to: "/knowledge", icon: BookOpen, labelKey: "nav.knowledge" },
+  { to: "/contact", icon: Phone, labelKey: "nav.contact" },
 ];
 
 export function Navigation() {
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col h-full">
@@ -41,7 +44,7 @@ export function Navigation() {
       </div>
       
       <nav className="p-2 space-y-1 flex-1">
-        {navItems.map(({ to, icon: Icon, label }) => (
+        {navItems.map(({ to, icon: Icon, labelKey }) => (
           <Link
             key={to}
             to={to}
@@ -54,16 +57,19 @@ export function Navigation() {
             )}
           >
             <Icon size={18} />
-            <span>{label}</span>
+            <span>{t(labelKey)}</span>
           </Link>
         ))}
       </nav>
       
       <div className="p-4 mt-auto border-t border-soil-100">
-        <Link to="/login" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-soil-50 text-soil-600">
-          <LogIn size={18} />
-          <span>Login</span>
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link to="/login" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-soil-50 text-soil-600">
+            <LogIn size={18} />
+            <span>{t("nav.login")}</span>
+          </Link>
+          <LanguageSwitcher />
+        </div>
       </div>
     </div>
   );
