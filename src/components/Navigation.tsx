@@ -34,10 +34,10 @@ export function Navigation() {
   return (
     <div className="flex flex-col h-full">
       <div className="p-4 flex items-center gap-2 mb-6">
-        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-soil-600 to-leaf-600 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-soil-500 to-leaf-500 flex items-center justify-center">
           <Leaf className="h-6 w-6 text-white" />
         </div>
-        <div className="font-bold text-xl text-soil-800">SoilSense</div>
+        <div className="font-bold text-xl text-soil-700">SoilSense</div>
       </div>
       
       <nav className="p-2 space-y-1 flex-1">
@@ -49,7 +49,7 @@ export function Navigation() {
               "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200",
               "hover:bg-soil-50 text-soil-600 hover:text-soil-800",
               location.pathname === to 
-                ? "bg-soil-100 text-soil-800 font-medium border-l-4 border-soil-600" 
+                ? "bg-soil-100 text-soil-700 font-medium border-l-4 border-soil-500" 
                 : ""
             )}
           >
