@@ -1,6 +1,7 @@
 
 import { Card } from "@/components/ui/card";
-import { Droplet, Thermometer, Plant, Wind } from "lucide-react";
+import { Droplet, Thermometer, Sprout, Wind } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const metrics = [
   {
@@ -18,7 +19,7 @@ const metrics = [
     color: "text-orange-500",
   },
   {
-    icon: Plant,
+    icon: Sprout,
     label: "NPK Levels",
     value: "Good",
     status: "Balanced",
