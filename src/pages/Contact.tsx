@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Mail, Phone, MessageSquare, MapPin, Send, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const contactMethods = [
   {
@@ -64,6 +65,7 @@ type FormData = {
 
 const Contact = () => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -81,8 +83,8 @@ const Contact = () => {
     e.preventDefault();
     console.log("Form data submitted:", formData);
     toast({
-      title: "Message Sent",
-      description: "Thank you for your message. We'll respond shortly!",
+      title: t("contact.messageSuccess"),
+      description: t("contact.messageSuccessDesc"),
     });
     setFormData({
       name: "",
@@ -99,9 +101,9 @@ const Contact = () => {
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold text-soil-800">Contact & Support</h1>
+        <h1 className="text-3xl font-bold text-soil-800">{t("contact.title")}</h1>
         <p className="text-soil-600 mt-2">
-          We're here to help with any questions about soil monitoring or using our system.
+          {t("contact.subtitle")}
         </p>
       </div>
       
@@ -112,7 +114,11 @@ const Contact = () => {
               <div className={cn("w-12 h-12 rounded-full flex items-center justify-center mb-4", method.bg)}>
                 <method.icon className={cn("w-6 h-6", method.color)} />
               </div>
-              <h3 className="text-lg font-semibold text-soil-800">{method.title}</h3>
+              <h3 className="text-lg font-semibold text-soil-800">
+                {index === 0 ? t("contact.callUs") : 
+                 index === 1 ? t("contact.emailUs") : 
+                 t("ui.settings")}
+              </h3>
               <p className="text-soil-600 text-sm mt-1">{method.description}</p>
               <div className="text-lg font-medium text-soil-800 mt-3">{method.value}</div>
               <Button 
@@ -124,8 +130,8 @@ const Contact = () => {
                 onClick={() => {
                   if (index === 2) {
                     toast({
-                      title: "Live Chat",
-                      description: "Connecting you to a support agent...",
+                      title: t("ui.comingSoon"),
+                      description: t("contact.messageSending"),
                     });
                   }
                 }}
@@ -140,16 +146,16 @@ const Contact = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-soil-800">Send Us a Message</CardTitle>
+            <CardTitle className="text-soil-800">{t("contact.send")}</CardTitle>
             <CardDescription>
-              Fill out the form below and we'll get back to you as soon as possible.
+              {t("contact.messageSuccessDesc")}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-soil-700 mb-1">
-                  Your Name
+                  {t("contact.name")}
                 </label>
                 <input
                   type="text"
@@ -164,7 +170,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-soil-700 mb-1">
-                  Email Address
+                  {t("auth.email")}
                 </label>
                 <input
                   type="email"
@@ -179,7 +185,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-soil-700 mb-1">
-                  Subject
+                  {t("contact.subject")}
                 </label>
                 <input
                   type="text"
@@ -194,7 +200,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-soil-700 mb-1">
-                  Message
+                  {t("contact.message")}
                 </label>
                 <textarea
                   id="message"
@@ -208,7 +214,7 @@ const Contact = () => {
               </div>
               
               <Button type="submit" className="w-full bg-soil-600 hover:bg-soil-700">
-                <Send className="mr-2 h-4 w-4" /> Send Message
+                <Send className="mr-2 h-4 w-4" /> {t("contact.send")}
               </Button>
             </form>
           </CardContent>
@@ -217,7 +223,7 @@ const Contact = () => {
         <div className="space-y-6">
           <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle className="text-soil-800">Frequently Asked Questions</CardTitle>
+              <CardTitle className="text-soil-800">{t("contact.generalInquiry")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -262,7 +268,7 @@ const Contact = () => {
           
           <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle className="text-soil-800">Headquarters</CardTitle>
+              <CardTitle className="text-soil-800">{t("contact.headquarters")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-start space-x-3">
@@ -284,13 +290,13 @@ const Contact = () => {
                 <Clock className="w-5 h-5 text-soil-500 mt-0.5" />
                 <div>
                   <p className="text-soil-700">
-                    <strong>Business Hours:</strong>
+                    <strong>{t("contact.supportHours")}:</strong>
                     <br />
-                    Monday to Friday: 9:00 AM - 6:00 PM (PST)
+                    {t("contact.weekdays")}: 9:00 AM - 6:00 PM (PST)
                     <br />
-                    Saturday: 10:00 AM - 2:00 PM (PST)
+                    {t("contact.weekends")}: 10:00 AM - 2:00 PM (PST)
                     <br />
-                    Sunday: Closed
+                    {t("contact.closed")}
                   </p>
                 </div>
               </div>

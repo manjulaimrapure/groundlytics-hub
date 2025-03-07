@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Filter, Calendar, Bell, Leaf, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const soilHealthData = [
   { name: "Jan", nitrogen: 65, phosphorus: 40, potassium: 55 },
@@ -53,19 +54,21 @@ const recommendations = [
 ];
 
 const DataAnalysis = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <h1 className="text-3xl font-bold text-soil-800">Data Analysis & Recommendations</h1>
+        <h1 className="text-3xl font-bold text-soil-800">{t("analysis.title")}</h1>
         <div className="flex gap-2">
           <Button variant="outline" className="text-soil-600">
-            <Filter className="mr-2 h-4 w-4" /> Filter
+            <Filter className="mr-2 h-4 w-4" /> {t("ui.filter")}
           </Button>
           <Button variant="outline" className="text-soil-600">
-            <Calendar className="mr-2 h-4 w-4" /> Date Range
+            <Calendar className="mr-2 h-4 w-4" /> {t("ui.dateRange")}
           </Button>
           <Button variant="outline" className="text-soil-600">
-            <Download className="mr-2 h-4 w-4" /> Export Data
+            <Download className="mr-2 h-4 w-4" /> {t("ui.exportData")}
           </Button>
         </div>
       </div>
@@ -73,7 +76,7 @@ const DataAnalysis = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="col-span-3 lg:col-span-2 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-soil-800">Soil Nutrient Trends</CardTitle>
+            <CardTitle className="text-soil-800">{t("analysis.nutrientTrends")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[350px]">
@@ -84,9 +87,9 @@ const DataAnalysis = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="nitrogen" fill="#8884d8" name="Nitrogen" />
-                  <Bar dataKey="phosphorus" fill="#82ca9d" name="Phosphorus" />
-                  <Bar dataKey="potassium" fill="#ffc658" name="Potassium" />
+                  <Bar dataKey="nitrogen" fill="#8884d8" name={t("analysis.nitrogen")} />
+                  <Bar dataKey="phosphorus" fill="#82ca9d" name={t("analysis.phosphorus")} />
+                  <Bar dataKey="potassium" fill="#ffc658" name={t("analysis.potassium")} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -95,7 +98,7 @@ const DataAnalysis = () => {
         
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-soil-800">Soil Composition</CardTitle>
+            <CardTitle className="text-soil-800">{t("analysis.soilComposition")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -109,7 +112,9 @@ const DataAnalysis = () => {
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name === "Clay" ? t("analysis.clay") : 
+                                                   name === "Silt" ? t("analysis.silt") : 
+                                                   t("analysis.sand")}: ${(percent * 100).toFixed(0)}%`}
                   >
                     {soilTypeData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -126,7 +131,7 @@ const DataAnalysis = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-soil-800">Soil Moisture Trend</CardTitle>
+            <CardTitle className="text-soil-800">{t("analysis.moistureTrend")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[250px]">
@@ -141,7 +146,7 @@ const DataAnalysis = () => {
                     dataKey="value" 
                     stroke="#3b82f6" 
                     strokeWidth={2}
-                    name="Moisture %"
+                    name={t("analysis.moisturePercent")}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -151,9 +156,9 @@ const DataAnalysis = () => {
         
         <Card className="lg:col-span-2 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-soil-800">AI Recommendations</CardTitle>
+            <CardTitle className="text-soil-800">{t("analysis.aiRecommendations")}</CardTitle>
             <Button variant="ghost" className="text-soil-600">
-              <Bell className="h-4 w-4 mr-2" /> Notifications
+              <Bell className="h-4 w-4 mr-2" /> {t("alerts.currentAlerts")}
             </Button>
           </CardHeader>
           <CardContent>
@@ -170,30 +175,40 @@ const DataAnalysis = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-soil-800">{rec.title}</h4>
+                      <h4 className="font-medium text-soil-800">
+                        {i === 0 ? t("analysis.increaseNitrogen") : 
+                         i === 1 ? t("analysis.adjustIrrigation") : 
+                         t("analysis.monitorPh")}
+                      </h4>
                       <span className={cn(
                         "text-xs px-2 py-0.5 rounded-full",
                         rec.impact === "High" ? "bg-red-100 text-red-700" : 
                         rec.impact === "Medium" ? "bg-yellow-100 text-yellow-700" : 
                         "bg-green-100 text-green-700"
                       )}>
-                        {rec.impact} Impact
+                        {rec.impact === "High" ? t("dashboard.highPriority") : 
+                         rec.impact === "Medium" ? t("dashboard.mediumPriority") : 
+                         t("dashboard.lowPriority")} {t("analysis.impact")}
                       </span>
                     </div>
-                    <p className="text-soil-600 text-sm">{rec.description}</p>
+                    <p className="text-soil-600 text-sm">
+                      {i === 0 ? t("analysis.nitrogenLevels") : 
+                       i === 1 ? t("analysis.moistureTrends") : 
+                       t("analysis.phLevels")}
+                    </p>
                     <div className="flex items-center mt-1 text-xs">
-                      <span className="text-soil-500 mr-1">Trend:</span>
+                      <span className="text-soil-500 mr-1">{t("analysis.trend")}:</span>
                       {rec.trend === "increasing" ? (
                         <div className="flex items-center text-green-500">
-                          <ArrowUpRight className="h-3 w-3 mr-1" /> Increasing
+                          <ArrowUpRight className="h-3 w-3 mr-1" /> {t("analysis.increasing")}
                         </div>
                       ) : rec.trend === "decreasing" ? (
                         <div className="flex items-center text-red-500">
-                          <ArrowDownRight className="h-3 w-3 mr-1" /> Decreasing
+                          <ArrowDownRight className="h-3 w-3 mr-1" /> {t("analysis.decreasing")}
                         </div>
                       ) : (
                         <div className="flex items-center text-yellow-500">
-                          Stable
+                          {t("analysis.stable")}
                         </div>
                       )}
                     </div>
