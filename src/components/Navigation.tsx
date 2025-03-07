@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/contexts/LanguageContext";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const navItems = [
   { to: "/", icon: Home, labelKey: "nav.home" },
@@ -63,13 +62,10 @@ export function Navigation() {
       </nav>
       
       <div className="p-4 mt-auto border-t border-soil-100">
-        <div className="flex items-center justify-between">
-          <Link to="/login" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-soil-50 text-soil-600">
-            <LogIn size={18} />
-            <span>{t("nav.login")}</span>
-          </Link>
-          <LanguageSwitcher />
-        </div>
+        <Link to="/login" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-soil-50 text-soil-600">
+          <LogIn size={18} />
+          <span>{t("nav.login")}</span>
+        </Link>
       </div>
     </div>
   );

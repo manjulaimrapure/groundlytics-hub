@@ -7,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Sprout } from "lucide-react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { t } = useTranslation();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,19 +28,19 @@ const Register = () => {
           <div className="flex justify-center mb-2">
             <Sprout className="h-12 w-12 text-soil-600" />
           </div>
-          <CardTitle className="text-2xl font-bold text-soil-800">Create an account</CardTitle>
+          <CardTitle className="text-2xl font-bold text-soil-800">{t("auth.createAccount")}</CardTitle>
           <CardDescription className="text-soil-600">
-            Enter your information to create your SoilSense account
+            {t("auth.enterInfo")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-soil-700">Full Name</Label>
+              <Label htmlFor="name" className="text-soil-700">{t("auth.fullName")}</Label>
               <Input 
                 id="name" 
                 type="text" 
-                placeholder="John Doe" 
+                placeholder={t("auth.fullName")} 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -46,7 +48,7 @@ const Register = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-soil-700">Email</Label>
+              <Label htmlFor="email" className="text-soil-700">{t("auth.email")}</Label>
               <Input 
                 id="email" 
                 type="email" 
@@ -58,41 +60,41 @@ const Register = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-soil-700">Password</Label>
+              <Label htmlFor="password" className="text-soil-700">{t("auth.password")}</Label>
               <Input 
                 id="password" 
                 type="password" 
-                placeholder="Create a strong password" 
+                placeholder={t("auth.createStrongPassword")} 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="border-soil-200 focus:border-soil-500"
               />
-              <p className="text-xs text-soil-500">Password must be at least 8 characters long</p>
+              <p className="text-xs text-soil-500">{t("auth.passwordRequirement")}</p>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="terms" required />
               <Label htmlFor="terms" className="text-sm text-soil-600">
-                I agree to the{" "}
+                {t("auth.agreeToTerms")}{" "}
                 <Link to="#" className="text-soil-700 hover:text-soil-800 font-medium">
-                  Terms of Service
+                  {t("auth.termsOfService")}
                 </Link>{" "}
-                and{" "}
+                {t("auth.and")}{" "}
                 <Link to="#" className="text-soil-700 hover:text-soil-800 font-medium">
-                  Privacy Policy
+                  {t("auth.privacyPolicy")}
                 </Link>
               </Label>
             </div>
             <Button type="submit" className="w-full bg-soil-600 hover:bg-soil-700">
-              Create Account
+              {t("auth.createAccount")}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <div className="text-sm text-soil-600 text-center">
-            Already have an account?{" "}
+            {t("auth.alreadyHaveAccount")}{" "}
             <Link to="/login" className="text-soil-700 hover:text-soil-800 font-medium">
-              Sign in
+              {t("auth.signIn")}
             </Link>
           </div>
         </CardFooter>

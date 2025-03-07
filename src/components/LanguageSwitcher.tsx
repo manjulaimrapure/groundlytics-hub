@@ -31,7 +31,7 @@ export function LanguageSwitcher() {
           <DropdownMenuItem
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className="cursor-pointer"
+            className={`cursor-pointer ${language === lang.code ? "bg-soil-100" : ""}`}
           >
             <div className="flex items-center justify-between w-full">
               <span>{lang.name}</span>
