@@ -12,8 +12,8 @@ import {
 
 const languages: { code: Language; name: string }[] = [
   { code: "en", name: "English" },
-  { code: "es", name: "Español" },
-  { code: "fr", name: "Français" },
+  { code: "mr", name: "मराठी" },
+  { code: "hi", name: "हिंदी" },
 ];
 
 export function LanguageSwitcher() {
